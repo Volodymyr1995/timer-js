@@ -1,0 +1,39 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+#lines{
+
+}
+
+.button {
+    width: 50px;
+    height: 20px;
+    border-radius: 2px;
+}
+
+.transformLine {
+    width: 900px;
+    height: 90px;
+    border-radius: 10px;
+    background-color: rgb(148, 121, 179);
+    font-family: Helvetica; 
+    position: relative;
+    font-size: 18px;
+    /*transform-origin: left;*/
+}
+.secondsClass{
+    font-family: Helvetica;
+    font-size: 18px;
+}
+
+.startButton, .stopButton {
+    margin: 10px;
+    font-size: 17px;
+    height: 30px;
+    width: 50px;
+    border-radius: 15px;
+    background-color: rgb(44, 99, 99);
+    color: rgb(255, 136, 0);
+}
