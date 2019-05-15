@@ -137,7 +137,7 @@ class Decrease {
 
 let timerOne = new Decrease(10);
 let timerTwo = new Decrease(60, true);
-*/
+
 
 
 const container = document.querySelector('#lines');
@@ -216,6 +216,88 @@ class Decrease {
     }
 
     stopExecution(){
+        clearInterval(this.intervalSeconds);
+    };
+  
+}
+*/
+
+const container = document.querySelector('#lines');
+
+class Decrease {
+
+    constructor(seconds, events){
+        this.seconds = seconds;
+        this.secondsFace = seconds;
+        this.isEvents = events;
+        this.render();
+    }
+    
+    render() {
+        this.line = document.createElement('div');
+        this.line.classList.add('transformLine');
+        this.secondsFace = document.createElement('div');
+        this.secondsFace.classList.add('secondsClass');
+        container.append(this.secondsFace);
+        this.renderButtonStart();
+        this.renderButtonStop();
+        container.append(this.line);
+        this.conditions();
+    }
+
+    conditions(){
+        if(this.isEvents === true){
+        this.showSecondsCount();
+        }
+    }
+    
+
+   showSecondsCount() {
+    
+       this.intervalSeconds = setInterval(()=>{
+
+            this.seconds--;
+            this.secondsFace.innerHTML = this.secondsFace;
+            this.secondsFace.textContent = Decrease.getTimeString(this.seconds);
+
+          this.updateTimerLineWidth();
+      
+        }, 1000);
+
+    }
+
+    static getTimeString(seconds){
+        if (seconds < 0) return null;
+        const hours = new Date(seconds * 1000).getUTCHours();
+        const minutes = new Date(seconds * 1000).getMinutes();
+        const sec = new Date(seconds * 1000).getSeconds();
+        return (hours <= 9 && '0' || '') + hours + ":" + (minutes <= 9 && '0' || '') + minutes + ":" + (sec <= 9 && '0' || '') + sec; // added 0 for value less than 10
+    }
+
+    updateTimerLineWidth(){
+
+        const persent = this.line.offsetWidth - (this.line.offsetWidth / this.seconds);
+        this.line.style.width = persent + "px";
+     }
+
+    renderButtonStart(){
+       
+        this.buttonStart = document.createElement('button');
+        this.buttonStart.textContent = 'Start';
+        this.buttonStart.classList.add('startButton');
+        this.buttonStart.addEventListener('click', this.showSecondsCount.bind(this));
+        container.append(this.buttonStart);
+    }
+
+    renderButtonStop(){
+        this.buttonStop = document.createElement('button');
+        this.buttonStop.textContent = 'Stop';
+        this.buttonStop.classList.add('stopButton');
+        this.buttonStop.addEventListener('click', this.stopDecreasingLine.bind(this));
+        container.append(this.buttonStop);
+    }
+
+    stopDecreasingLine(){
         clearInterval(this.intervalSeconds);
     };
   
